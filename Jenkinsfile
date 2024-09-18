@@ -1,11 +1,15 @@
 pipeline{
     agent any
-
     stages{
-       stage('Installing Azure'){
-        steps{
-            sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
+        stage('checkout'){
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/yrrk/nginx-server.git']])
+            }
         }
+        stage('Installing Azure'){
+            steps{
+                sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
+                }
        }
     //    stage('Installing Terraform'){
     //     steps{
