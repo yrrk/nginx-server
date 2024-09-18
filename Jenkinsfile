@@ -5,6 +5,7 @@ pipeline{
        stage('Testing'){
         steps{
             sh 'hostname'
+            sh 'pwd'
         }
        }
     }
