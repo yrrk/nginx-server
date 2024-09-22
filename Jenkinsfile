@@ -6,11 +6,11 @@ pipeline{
                 sh 'az --version'
                 }
        }
+
        stage('verify terraform installed'){
             steps{
                 sh'terraform version'
             }
         }
-       }
     }
 }
