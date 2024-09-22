@@ -1,9 +1,9 @@
 pipeline{
     agent any
     stages{
-        stage('Installing Azure'){
+        stage('verify az installed'){
             steps{
-                sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
+                sh 'az --version'
                 }
        }
     //    stage('Installing Terraform'){
