@@ -10,7 +10,7 @@ pipeline{
         }
         stage('Terraform plan'){
             steps{
-                dir(./Terraform-infra){
+                dir('./Terraform-infra'){
                     sh 'terraform plan'
                 }
             }
