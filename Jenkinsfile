@@ -1,21 +1,17 @@
 pipeline{
     agent any
     stages{
-        stage('verify az installed'){
-            steps{
-                sh 'az --version'
-                }
-       }
-
-       stage('verify terraform installed'){
-            steps{
-                sh'terraform version'
-            }
-        }
-        stage('az verify'){
+        stage('Terraform init'){
             steps{
                 dir('./Terraform-infra'){
                     sh 'terraform init'
+                }
+            }
+        }
+        stage('Terraform plan'){
+            steps{
+                dir(./Terraform-infra){
+                    sh 'terraform plan'
                 }
             }
         }
