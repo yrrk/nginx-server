@@ -14,7 +14,9 @@ pipeline{
         }
         stage('az verify'){
             steps{
-                sh 'az account show'
+                dir('./Terraform-infra'){
+                    sh 'terraform init'
+                }
             }
         }
     }
