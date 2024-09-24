@@ -1,5 +1,5 @@
 resource "azurerm_public_ip" "public-ip" {
-  count               = var.create_publicfrontend_ip ? 1 : 0
+  # count               = var.create_publicfrontend_ip ? 1 : 0
   name                = "public-ip1"
   resource_group_name = var.resource-group
   location            = var.location
@@ -14,7 +14,7 @@ resource "azurerm_lb" "load-balancer" {
 
     content {
       name                 = "PublicIPAddress"
-      public_ip_address_id = azurerm_public_ip.public-ip.id[1]
+      public_ip_address_id = azurerm_public_ip.public-ip.id
     }
   }
   dynamic "frontend_ip_configuration" {
