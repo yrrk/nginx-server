@@ -1,4 +1,4 @@
-resource "azurerm_public_ip" "public-ip {
+resource "azurerm_public_ip" "public-ip" {
   count               = var.create_publicfrontend_ip ? [1] : [0]
   name                = "public-ip1"
   resource_group_name = var.resource-group
