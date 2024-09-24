@@ -14,7 +14,7 @@ resource "azurerm_lb" "load-balancer" {
 
     content {
       name                 = "PublicIPAddress"
-      public_ip_address_id = azurerm_public_ip.public-ip.id
+      public_ip_address_id = azurerm_public_ip.public-ip.id[1]
     }
   }
   dynamic "frontend_ip_configuration" {
