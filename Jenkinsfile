@@ -1,11 +1,9 @@
 pipeline{
     agent any
     stages{
-        stage('Installing Terraform'){
+        stage('Azure Cli Login'){
         steps{
-                sh 'wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg'
-                sh 'echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list'
-                sh 'sudo apt update && sudo apt install terraform'
+                sh 'az login --service-principal --username 1375150f-b39a-4e54-975d-5376eb31fad2 --password LmS8Q~3P1-vxykMZvSR27A7EOIUanqVG0D.X4c2S --tenant d93033c2-5537-4549-8737-f852287a0896'
         }
        }
         // stage('Terraform init'){
