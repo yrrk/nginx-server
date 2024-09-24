@@ -48,3 +48,66 @@ resource "azurerm_subnet_network_security_group_association" "nginx-project-ngs-
     azurerm_network_security_group.nginx-project-nsg
   ]
 }
+module "nginx-project-vm" {
+  source         = "./modules/virtual-machine"
+  for_each       = var.vms
+  nic-card-name  = "nginx-project-${each.key}-nic"
+  resource-group = var.resource-group
+  location       = var.location
+  subnetid       = azurerm_subnet.nginx-project-subnet0.id
+  vm-name        = "nginx-project-${each.key}"
+  username       = "adminuser"
+  password       = "P@ssw0rd123!"
+  depends_on = [
+    azurerm_subnet_network_security_group_association.nginx-project-ngs-vnet
+  ]
+}
+
+locals {
+  network_interfaces = {
+    for idx, nic_id in module.nginx-project-vm : idx => {
+      id                    = nic_id.nic_card_ids
+      ip_configuration_name = "internal"
+    }
+  }
+  depends_on = [
+    module.nginx-project-vm
+  ]
+}
+output "network_interfaces_output" {
+  value = local.network_interfaces
+}
+module "nginx-project-lb0" {
+  source         = "./modules/load-balancer"
+  resource-group = var.resource-group
+  location       = var.location
+  lb-name        = "nginx-project-lb0"
+  subnetid       = azurerm_subnet.nginx-project-subnet0.id
+  depends_on = [
+    module.nginx-project-vm
+  ]
+  network-interfaces = local.network_interfaces
+}
+
+resource "azurerm_lb_probe" "nginx-project-lb-probe" {
+  name                = "nginx-project-lb-probe"
+  loadbalancer_id     = module.nginx-project-lb0.load-balancer-id
+  protocol            = "Http"
+  port                = 80
+  request_path        = "/"
+  interval_in_seconds = 5
+  number_of_probes    = 2
+  depends_on = [
+    module.nginx-project-lb0
+  ]
+}
+resource "azurerm_lb_rule" "nginx-project-lb-rule" {
+  name                           = "nginx-project-lb-rule"
+  loadbalancer_id                = module.nginx-project-lb0.load-balancer-id
+  protocol                       = "Tcp"
+  frontend_port                  = 80
+  backend_port                   = 80
+  frontend_ip_configuration_name = module.nginx-project-lb0.frontend-ip-config-name
+  probe_id                       = azurerm_lb_probe.nginx-project-lb-probe.id
+  backend_address_pool_ids       = [module.nginx-project-lb0.backend-pool-id]
+}

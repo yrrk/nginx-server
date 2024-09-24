@@ -19,4 +19,24 @@ variable "subnet0" {
   description = "name of the subnet"
 }
 
+variable "vms" {
+  description = "Map of VM configurations"
+  type = map(object({
+    name           = string
+    admin_username = string
+    admin_password = string
+  }))
+  default = {
+    vm1 = {
+      name           = "nginx-project-vm0"
+      admin_username = "adminuser"
+      admin_password = "P@ssw0rd123!"
+    }
+    vm2 = {
+      name           = "nginx-project-vm1"
+      admin_username = "adminuser"
+      admin_password = "P@ssw0rd123!"
+    }
+  }
+}
 
