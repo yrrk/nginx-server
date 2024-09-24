@@ -9,6 +9,9 @@ resource "azurerm_lb" "load-balancer" {
   name                = var.lb-name
   location            = var.location
   resource_group_name = var.resource-group
+  depends_on = [
+        azurerm_public_ip.public-ip
+      ]
 
   dynamic "frontend_ip_configuration" {
     for_each = var.create_publicfrontend_ip ? [1] : []
@@ -16,9 +19,6 @@ resource "azurerm_lb" "load-balancer" {
     content {
       name                 = "PublicIPAddress"
       public_ip_address_id = azurerm_public_ip.public-ip.id
-      depends_on = [
-        azurerm_public_ip.public-ip
-      ]
     }
   }
   dynamic "frontend_ip_configuration" {
