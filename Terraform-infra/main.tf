@@ -81,6 +81,7 @@ module "nginx-project-lb0" {
   source         = "./modules/load-balancer"
   resource-group = var.resource-group
   location       = var.location
+  public-ip = "passed"
   lb-name        = "nginx-project-lb0"
   create_publicfrontend_ip = true
   create_privatefrontend_ip = false
