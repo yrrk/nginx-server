@@ -110,4 +110,35 @@ resource "azurerm_lb_rule" "nginx-project-lb-rule" {
   frontend_ip_configuration_name = module.nginx-project-lb0.frontend-ip-config-name
   probe_id                       = azurerm_lb_probe.nginx-project-lb-probe.id
   backend_address_pool_ids       = [module.nginx-project-lb0.backend-pool-id]
+  depends_on = [
+    azurerm_lb_probe.nginx-project-lb-probe
+  ]
+}
+
+resource "azurerm_lb_nat_rule" "ssh_nat_rule_vm1" {
+  name                           = "ssh_nat-rule-vm1"
+  resource_group_name            = var.resource-group
+  loadbalancer_id                = module.nginx-project-lb0.load-balancer-id
+  backend_port                   = 22          # Default SSH port on the VM
+  frontend_port                  = 2389        # Custom port for accessing VM1
+  protocol                       = "Tcp"
+  frontend_ip_configuration_name  = module.nginx-project-lb0.frontend-ip-config-name
+  idle_timeout_in_minutes        = 4
+  depends_on=[
+    azurerm_lb_rule.nginx-project-lb-rule
+  ]
+}
+
+resource "azurerm_lb_nat_rule" "ssh_nat_rule_vm2" {
+  name                           = "ssh_nat_rule_vm2"
+  resource_group_name            = var.resource-group
+  loadbalancer_id                = module.nginx-project-lb0.load-balancer-id
+  backend_port                   = 22          # Default SSH port on the VM
+  frontend_port                  = 2390        # Custom port for accessing VM2
+  protocol                       = "Tcp"
+  frontend_ip_configuration_name  = module.nginx-project-lb0.frontend-ip-config-name
+  idle_timeout_in_minutes        = 4
+  depends_on=[
+    azurerm_lb_rule.nginx-project-lb-rule
+  ]
 }
