@@ -3,7 +3,7 @@ resource "azurerm_public_ip" "public-ip {
   name                = "public-ip1"
   resource_group_name = var.resource-group
   location            = var.location
-  allocation_method   = dynamic
+  allocation_method   = "Dynamic"
 }
 resource "azurerm_lb" "load-balancer" {
   name                = var.lb-name
