@@ -82,6 +82,8 @@ module "nginx-project-lb0" {
   resource-group = var.resource-group
   location       = var.location
   lb-name        = "nginx-project-lb0"
+  create_publicfrontend_ip = true
+  create_privatefrontend_ip = false
   subnetid       = azurerm_subnet.nginx-project-subnet0.id
   depends_on = [
     module.nginx-project-vm
