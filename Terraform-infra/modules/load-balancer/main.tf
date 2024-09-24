@@ -3,16 +3,12 @@ resource "azurerm_public_ip" "public-ip" {
   name                = "public-ip1"
   resource_group_name = var.resource-group
   location            = var.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 resource "azurerm_lb" "load-balancer" {
   name                = var.lb-name
   location            = var.location
   resource_group_name = var.resource-group
-  depends_on = [
-        azurerm_public_ip.public-ip
-      ]
-
   dynamic "frontend_ip_configuration" {
     for_each = var.create_publicfrontend_ip ? [1] : []
 
