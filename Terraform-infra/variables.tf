@@ -5,7 +5,7 @@ variable "resource-group" {
 }
 variable "location" {
   type        = string
-  default     = "West US"
+  default     = "Canada Central"
   description = "Location of the infra"
 }
 variable "vnet" {
