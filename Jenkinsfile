@@ -1,7 +1,7 @@
 pipeline{
     agent any
     stages{
-        stage("install azure"){
+        stage("install azure due to new slave"){
             steps{
                 sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
             }
