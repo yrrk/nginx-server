@@ -1,6 +1,11 @@
 pipeline{
     agent any
     stages{
+        stage("install azure"){
+            steps{
+                sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
+            }
+        }
         // stage('Terraform init'){
         //     steps{
         //         dir('./Terraform-infra'){
@@ -22,12 +27,12 @@ pipeline{
         //         }
         //     }
         // }
-        stage('Terraform Destroy'){
-            steps{
-                dir('./Terraform-infra'){
-                    sh 'terraform destroy -auto-approve'
-                }
-            }
-        }
+        // stage('Terraform Destroy'){
+        //     steps{
+        //         dir('./Terraform-infra'){
+        //             sh 'terraform destroy -auto-approve'
+        //         }
+        //     }
+        // }
     }
 }
