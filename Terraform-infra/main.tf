@@ -135,6 +135,8 @@ resource "azurerm_lb_rule" "nginx-project-lb-rule" {
   frontend_ip_configuration_name = module.nginx-project-lb0.frontend-ip-config-name
   probe_id                       = azurerm_lb_probe.nginx-project-lb-probe.id
   backend_address_pool_ids       = [module.nginx-project-lb0.backend-pool-id]
+  disable_outbound_snat                   = true
+
   depends_on = [
     azurerm_lb_probe.nginx-project-lb-probe
   ]
@@ -177,4 +179,7 @@ resource "azurerm_lb_outbound_rule" "nginx-project-lb-outbound-rule" {
   frontend_ip_configuration {
     name = module.nginx-project-lb0.frontend-ip-config-name
   }
+  depends_on=[
+    azurerm_lb_rule.nginx-project-lb-rule
+  ]
 }
