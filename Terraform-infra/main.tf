@@ -186,10 +186,16 @@ resource "azurerm_lb_nat_rule" "ssh_nat_rule_vm2" {
 #   ]
 # }
 
-resource "azurerm_network_interface_nat_rule_association" "nat_rule_association" {
-  for_each = local.network_interfaces
+# Associate NAT rule for VM1
+resource "azurerm_network_interface_nat_rule_association" "web_nic_nat_rule_associate_vm1" {
+  network_interface_id  = local.network_interfaces["vm1"].id  # Adjust the index based on your NICs
+  ip_configuration_name  = local.network_interfaces["vm1"].ip_configuration_name
+  nat_rule_id           = azurerm_lb_nat_rule.ssh_nat_rule_vm1.id
+}
 
-  network_interface_id  = each.value.id
-  ip_configuration_name  = each.value.ip_configuration_name
-  nat_rule_id           = each.key == "vm1" ? azurerm_lb_nat_rule.ssh_nat_rule_vm1.id : azurerm_lb_nat_rule.ssh_nat_rule_vm2.id
+# Associate NAT rule for VM2
+resource "azurerm_network_interface_nat_rule_association" "web_nic_nat_rule_associate_vm2" {
+  network_interface_id  = local.network_interfaces["vm2"].id  # Adjust the index based on your NICs
+  ip_configuration_name  = local.network_interfaces["vm2"].ip_configuration_name
+  nat_rule_id           = azurerm_lb_nat_rule.ssh_nat_rule_vm2.id
 }
