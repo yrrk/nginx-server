@@ -187,7 +187,7 @@ resource "azurerm_lb_nat_rule" "ssh_nat_rule_vm2" {
 # }
 
 resource "azurerm_network_interface_nat_rule_association" "nat_rule_association" {
-  for_each = local.network_interfaces_output
+  for_each = local.network_interfaces
 
   network_interface_id  = each.value.id
   ip_configuration_name  = each.value.ip_configuration_name
