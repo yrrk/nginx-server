@@ -115,6 +115,7 @@ module "nginx-project-lb0" {
 }
 
 resource "azurerm_lb_probe" "nginx-project-lb-probe" {
+  name                = "nginx-project-lb-probe"
   loadbalancer_id     = module.nginx-project-lb0.load-balancer-id
   protocol            = "Http"
   port                = 80
