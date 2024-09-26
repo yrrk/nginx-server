@@ -135,7 +135,7 @@ resource "azurerm_lb_rule" "nginx-project-lb-rule" {
   frontend_port                  = 22
   backend_port                   = 22
   frontend_ip_configuration_name = module.nginx-project-lb0.frontend-ip-config-name
-  probe_id                       = azurerm_lb_probe.ssh-running-probe.id
+  probe_id                       = azurerm_lb_probe.nginx-project-lb-probe.id
   backend_address_pool_ids       = [module.nginx-project-lb0.backend-pool-id]
   # disable_outbound_snat                   = true
 
