@@ -115,15 +115,12 @@ module "nginx-project-lb0" {
 }
 
 resource "azurerm_lb_probe" "nginx-project-lb-probe" {
-  # name                = "nginx-project-lb-probe"
   loadbalancer_id     = module.nginx-project-lb0.load-balancer-id
-  name            = "ssh-running-probe"
-  port            = 22
-  # protocol            = "Http"
-  # port                = 80
-  # request_path        = "/"
-  # interval_in_seconds = 5
-  # number_of_probes    = 2
+  protocol            = "Http"
+  port                = 80
+  request_path        = "/"
+  interval_in_seconds = 5
+  number_of_probes    = 2
   depends_on = [
     module.nginx-project-lb0
   ]
@@ -132,8 +129,8 @@ resource "azurerm_lb_rule" "nginx-project-lb-rule" {
   name                           = "nginx-project-lb-rule"
   loadbalancer_id                = module.nginx-project-lb0.load-balancer-id
   protocol                       = "Tcp"
-  frontend_port                  = 22
-  backend_port                   = 22
+  frontend_port                  = 80
+  backend_port                   = 80
   frontend_ip_configuration_name = module.nginx-project-lb0.frontend-ip-config-name
   probe_id                       = azurerm_lb_probe.nginx-project-lb-probe.id
   backend_address_pool_ids       = [module.nginx-project-lb0.backend-pool-id]
