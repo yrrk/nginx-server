@@ -185,3 +185,15 @@ resource "azurerm_lb_nat_rule" "ssh_nat_rule_vm2" {
 #     azurerm_lb_rule.nginx-project-lb-rule
 #   ]
 # }
+
+resource "azurerm_network_interface_nat_rule_association" "web_nic_nat_rule_associate_vm1" {
+  network_interface_id  = local.network_interfaces["0"].id  # Adjust the index based on your NICs
+  ip_configuration_name  = local.network_interfaces["0"].ip_configuration_name
+  nat_rule_id           = azurerm_lb_nat_rule.ssh_nat_rule_vm1.id
+}
+
+resource "azurerm_network_interface_nat_rule_association" "web_nic_nat_rule_associate_vm2" {
+  network_interface_id  = local.network_interfaces["1"].id  # Adjust the index based on your NICs
+  ip_configuration_name  = local.network_interfaces["1"].ip_configuration_name
+  nat_rule_id           = azurerm_lb_nat_rule.ssh_nat_rule_vm2.id
+}
