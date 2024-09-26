@@ -131,7 +131,7 @@ resource "azurerm_lb_probe" "nginx-project-lb-probe" {
 resource "azurerm_lb_rule" "nginx-project-lb-rule" {
   name                           = "nginx-project-lb-rule"
   loadbalancer_id                = module.nginx-project-lb0.load-balancer-id
-  protocol                       = "All"
+  protocol                       = "Tcp"
   frontend_port                  = 22
   backend_port                   = 22
   frontend_ip_configuration_name = module.nginx-project-lb0.frontend-ip-config-name
