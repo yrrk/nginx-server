@@ -22,7 +22,7 @@ pipeline{
                 }
             }
         }
-        stage('installing ansible'){
+        stage('installing ansible please'){
             steps{
                 sh 'sudo echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc'
                 sh 'source ~/.bashrc'
