@@ -15,7 +15,7 @@ pipeline{
                 }
             }
         }
-        stage('Terraform apply please'){
+        stage('Terraform apply'){
             steps{
                 dir('./Terraform-infra'){
                     sh 'terraform apply -auto-approve'
