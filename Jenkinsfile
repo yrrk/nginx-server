@@ -22,6 +22,14 @@ pipeline{
                 }
             }
         }
+        stage('installing ansible'){
+            steps{
+                sh 'sudo apt update'
+                sh 'sudo apt install python3 python3-pip'
+                sh 'pip3 install ansible'
+                sh 'ansible --version'
+            }
+        }
         // stage('Terraform Destroy'){
         //     steps{
         //         dir('./Terraform-infra'){
