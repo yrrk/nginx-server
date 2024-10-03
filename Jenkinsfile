@@ -24,8 +24,8 @@ pipeline{
         }
         stage('installing ansible'){
             steps{
-                sh 'sudo apt update'
-                sh 'pip3 install ansible'
+                sh 'sudo echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc'
+                sh 'source ~/.bashrc'
                 sh 'ansible --version'
             }
         }
