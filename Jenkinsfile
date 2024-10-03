@@ -25,8 +25,8 @@ pipeline{
         stage('installing ansible'){
             steps{
                 sh 'sudo apt update'
-                sh 'sudo apt install python3 python3-pip'
-                sh 'pip3 install ansible'
+                sh 'sudo apt install python3 python3-pip -y'
+                sh 'pip3 install ansible -y'
                 sh 'ansible --version'
             }
         }
