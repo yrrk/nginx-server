@@ -24,9 +24,9 @@ pipeline{
         }
         stage('installing ansible please'){
             steps{
-                // sh 'sudo echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc'
+                sh 'sudo echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc'
                 // sh 'source ~/.bashrc'
-                sh 'ansible --version'
+                // sh 'ansible --version'
             }
         }
         // stage('Terraform Destroy'){
