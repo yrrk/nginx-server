@@ -22,13 +22,16 @@ pipeline{
                 }
             }
         }
-        stage('installing ansible please'){
-            steps{
-                sh 'echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc'
-                // sh 'source ~/.bashrc'
-                // sh 'ansible --version'
+        stage('Installing Ansible') {
+            steps {
+                script {
+                    env.PATH = "${env.HOME}/.local/bin:${env.PATH}"
+                    }
+
+                sh 'ansible --version'
             }
         }
+        
         // stage('Terraform Destroy'){
         //     steps{
         //         dir('./Terraform-infra'){
