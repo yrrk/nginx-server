@@ -23,13 +23,17 @@ pipeline{
         //     }
         // }
         
-        
-        stage('Terraform Destroy'){
+        stage("Testing"){
             steps{
-                dir('./Terraform-infra'){
-                    sh 'terraform destroy -auto-approve'
-                }
+                sh 'pwd'
             }
         }
+        // stage('Terraform Destroy'){
+        //     steps{
+        //         dir('./Terraform-infra'){
+        //             sh 'terraform destroy -auto-approve'
+        //         }
+        //     }
+        // }
     }
 }
